@@ -104,7 +104,6 @@ namespace AdminNamespace
 
             while (status)
             {
-                Console.WriteLine();
                 key = Console.ReadKey();
 
                 switch (key.Key)
@@ -134,27 +133,27 @@ namespace AdminNamespace
                                 Console.WriteLine("Enter Password:");
                                 string password = Console.ReadLine();
 
-                                if (username == "admin" && password == "admin")
+                            if (username == "admin" && password == "admin")
+                            {
+                                isAdmin = true;
+                                currentAdmin = admins[0];
+                                Console.WriteLine("Welcome Admin!");
+                                Console.WriteLine("All Posts:");
+                                foreach (Post post in posts)
                                 {
-                                    isAdmin = true;
-                                    currentAdmin = admins[0];
-                                   Console.WriteLine("Welcome Admin!");
-                                    Console.WriteLine("All Posts:");
-                                    foreach (Post post in posts)
+                                    Console.WriteLine("{0}. {1} - Likes: {2} - Views: {3}", post.ID, post.Content, post.LikeCount, post.ViewCount);
+                                }
+                                int postId = int.Parse(Console.ReadLine());
+                                Post postLike = null;
+                                foreach (Post post in posts)
+                                {
+                                    if (post.ID == postId)
                                     {
-                                        Console.WriteLine("{0}. {1} - Likes: {2} - Views: {3}", post.ID, post.Content, post.LikeCount, post.ViewCount);
+                                        postLike = post;
                                     }
-                                    int postId = int.Parse(Console.ReadLine());
-                                    Post postLike = null;
-                                    foreach (Post post in posts)
-                                    {
-                                        if (post.ID == postId)
-                                        {
-                                            postLike = post;
-                                        }
-                                       
 
-                                    }
+
+                                }
                                 postLike.ViewCount++;
                                 Console.WriteLine("Post {0} viewed!", postLike.ViewCount);
                                 Notification notification = new Notification
@@ -167,11 +166,11 @@ namespace AdminNamespace
                                 currentAdmin.Notifications.Add(notification);
                                 Console.WriteLine("Notification Created!");
 
-                                var fromAddress = new MailAddress("myinstagramprocektt@gmail.com", "Instagram");
-                                var toAddress = new MailAddress("ibrahimasadov31@gmail.com");
-                                string fromPassword = "vcopjxjbbyrmxext";
+                                var fromAddress = new MailAddress("ibrahimasadov31@gmail.com", "Instagram");
+                                var toAddress = new MailAddress("rustamh2006@gmail.com");
+                                string fromPassword = "wzktlxuijxjewkae";
                                 const string subject = "Instagram";
-                                string body = "Post " + postLike.ID + " has liked";
+                                string body = "Post " + postLike.ID + " has viewed";
 
                                 var smtp = new SmtpClient
                                 {
@@ -193,18 +192,21 @@ namespace AdminNamespace
                                 }
                                 Console.WriteLine("Email sent!");
 
+                            }
+                            else
+                            {
+                                try
+                                {
+
+                                    throw new Exception("Invalid Username Or Password!");
                                 }
-                            try
-                            {
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
 
-                                throw new Exception("Invalid Username Or Password!");
+                                }
+                                Thread.Sleep(2000);
                             }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-
-                            }
-                            Thread.Sleep(2000);
 
                         }
                         else if (choose == 1)
@@ -258,9 +260,9 @@ namespace AdminNamespace
                                     Console.WriteLine("Notification Created!");
                                     Thread.Sleep(1000);
 
-                                    var fromAddress = new MailAddress("myinstagramprocektt@gmail.com", "Instagram");
-                                    var toAddress = new MailAddress("ibrahimasadov31@gmail.com");
-                                    string fromPassword = "vcopjxjbbyrmxext";
+                                    var fromAddress = new MailAddress("ibrahimasadov31@gmail.com", "Instagram");
+                                    var toAddress = new MailAddress("rustamh2006@gmail.com");
+                                    string fromPassword = "wzktlxuijxjewkae";
                                     const string subject = "Instagram";
                                     string body = "Post " + postLike.ID + " has liked";
 
